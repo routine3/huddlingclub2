@@ -7,13 +7,18 @@ export type CopyLinkFieldProps = {
   value?: string;
   description?: string;
   onCopy?: (value: string) => void;
+  onCopyError?: () => void;
   className?: string;
 };
 
-export default function CopyLinkField({ title = "초대장 링크", value = "…/i/k3f9x2a7", description = "게스트에게 공유하는 링크예요.", onCopy, className }: CopyLinkFieldProps) {
+export default function CopyLinkField({ title = "초대장 링크", value = "…/i/k3f9x2a7", description = "게스트에게 공유하는 링크예요.", onCopy, onCopyError, className }: CopyLinkFieldProps) {
   async function copyValue() {
-    await navigator.clipboard.writeText(value);
-    onCopy?.(value);
+    try {
+      await navigator.clipboard.writeText(value);
+      onCopy?.(value);
+    } catch {
+      onCopyError?.();
+    }
   }
 
   return (

@@ -16,7 +16,7 @@ export default function InvitationCover({ subtitle = "Huddling Club 2nd Meetup",
       "flex w-full max-w-[var(--size-invitation-cover)] flex-col items-center justify-center gap-page-horizontal overflow-hidden bg-[linear-gradient(180deg,var(--color-cover-gradient-preserved-3),var(--color-cover-gradient-preserved-4))] px-page-horizontal py-cover-inset text-center",
       className,
     ].filter(Boolean).join(" ")}>
-      <SectionHeader className="shrink-0 whitespace-pre-line" description={description} inverse showDescription={Boolean(description)} subtitle={subtitle} title={title} />
+      <SectionHeader className="shrink-0 whitespace-pre-line break-words" description={description} inverse showDescription={Boolean(description)} subtitle={subtitle} title={title} />
       <Image alt="초대장을 든 캐릭터" type="character" />
       <div className="flex w-full max-w-[calc(var(--size-input)-var(--spacing-8))] flex-col items-center gap-inline-md">
         <span className="rounded-control bg-info-subtle px-inline-compact py-inline-xs font-sans text-caption-md font-semibold leading-[var(--leading-150)] tracking-[var(--tracking-preserved-neg-0-12)] text-info-strong">일시</span>

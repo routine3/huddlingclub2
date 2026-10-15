@@ -33,7 +33,7 @@ export default function Textarea({ label = "Label", helper = "엔터로 줄을 �
           />
         </div>
       </div>
-      {showHelper ? <p className="mt-field-label typography-caption-md text-text-tertiary">{helper}</p> : null}
+      {showHelper ? <p aria-atomic="true" aria-live="polite" className="mt-field-label typography-caption-md text-text-tertiary" role="status">{helper}</p> : null}
     </div>
   );
 }

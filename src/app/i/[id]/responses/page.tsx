@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Button from "@/components/Button";
 import EmptyState from "@/components/EmptyState";
 import NavBar from "@/components/NavBar";
 import ResponseRowTrue from "@/components/ResponseRowTrue";
 import SectionHeader from "@/components/SectionHeader";
 import StatCard from "@/components/StatCard";
+import Toast from "@/components/Toast";
 import { mockInvitations } from "@/lib/mock";
 import { useParams } from "next/navigation";
 
@@ -23,6 +25,8 @@ function formatDateTime(dateTime: string) {
 
 export default function ResponsesPage() {
   const { id } = useParams<{ id: string }>();
+  const [toastMessage, setToastMessage] = useState("");
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const invitation = mockInvitations[id] ?? mockInvitations.demo;
   const responses = invitation.responses;
   const attendingResponses = responses.filter((response) => response.status === "yes");
@@ -33,9 +37,36 @@ export default function ResponsesPage() {
   );
   const formattedDateTime = formatDateTime(invitation.dateTime);
 
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
+
+  function showToast(message: string) {
+    setToastMessage(message);
+
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage("");
+      toastTimerRef.current = null;
+    }, 2000);
+  }
+
   async function copyInvitationLink() {
     const invitationUrl = `${window.location.origin}/i/${invitation.id}`;
-    await navigator.clipboard.writeText(invitationUrl);
+
+    try {
+      await navigator.clipboard.writeText(invitationUrl);
+      showToast("초대장 링크를 복사했어요.");
+    } catch {
+      showToast("링크 복사에 실패했어요. 주소를 직접 복사해 주세요.");
+    }
   }
 
   return (
@@ -81,6 +112,7 @@ export default function ResponsesPage() {
           초대장 링크 복사하기
         </Button>
       </div>
+      {toastMessage ? <Toast message={toastMessage} /> : null}
     </main>
   );
 }

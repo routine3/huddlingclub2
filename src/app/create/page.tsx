@@ -83,12 +83,14 @@ export default function CreatePage() {
           <CopyLinkField
             className="max-w-full"
             onCopy={() => showCopyToast("초대장 링크를 복사했어요.")}
+            onCopyError={() => showCopyToast("링크 복사에 실패했어요. 직접 복사해 주세요.")}
             value="/i/demo"
           />
           <CopyLinkField
             className="max-w-full"
             description="호스트용이에요. 이 링크를 아는 사람은 응답 목록을 볼 수 있어요."
             onCopy={() => showCopyToast("응답 현황 링크를 복사했어요.")}
+            onCopyError={() => showCopyToast("링크 복사에 실패했어요. 직접 복사해 주세요.")}
             title="응답 현황 링크"
             value="/i/demo/responses"
           />
@@ -110,7 +112,7 @@ export default function CreatePage() {
           <section className="flex flex-col gap-stack-lg">
             <Textarea
               containerClassName="max-w-full"
-              helper="엔터로 줄을 나눌 수 있어요 · 최대 2줄"
+              helper="엔터로 줄을 나눌 수 있어요 · 최대 50자"
               label="제목"
               maxLength={50}
               name="title"
