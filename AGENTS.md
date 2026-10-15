@@ -118,3 +118,13 @@ npm run build -- --webpack
 - 공개 쓰기 기능에는 과도한 요청과 스팸을 줄이기 위한 기본적인 요청 제한 또는 동등한 보호를 고려한다. 구체적인 방식이나 외부 서비스 도입이 필요하면 사용자에게 질문한다.
 - 데이터 삭제, 스키마 파괴, 대량 수정처럼 되돌리기 어려운 작업은 실행 전에 대상과 영향을 확인하고 사용자 승인을 받는다.
 - 기능 변경 후 최소한 `npm run lint`와 `npm run build -- --webpack`을 실행한다. 실행 환경 때문에 검증할 수 없으면 그 이유를 명확히 보고한다.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

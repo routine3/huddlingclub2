@@ -98,6 +98,7 @@
   --spacing-compact-detail: var(--spacing-5);
   --spacing-inline-compact: var(--spacing-6);
   --spacing-inline-md: var(--spacing-8);
+  --spacing-field-label: var(--spacing-8);
   --spacing-control-y: var(--spacing-8);
   --spacing-control-compact: var(--spacing-10);
   --spacing-control-x: var(--spacing-12);
@@ -188,6 +189,7 @@
   --size-section-header: 335px;
   --size-content-card: 338px;
   --size-invitation-cover: 375px;
+  --size-create-preview: 516px;
   --opacity-disabled: 0.4;
   --opacity-muted: 0.6;
 

@@ -50,24 +50,29 @@ export default function RSVPCard({ state = "form", name = "", attendance = "yes"
       <header className="flex flex-col gap-inline-compact text-center">
         <h2 className="typography-heading-lg text-text-strong">참석 여부 알려주기</h2>
         <p className="typography-body-md text-text-secondary">이름과 참석 여부를 남겨주세요.</p>
+        <p className="typography-caption-md text-text-tertiary">
+          이름, 참석 여부, 동반 인원은 응답 현황 링크를 아는 누구나 볼 수 있어요.
+        </p>
       </header>
 
       <Input
-        containerClassName="max-w-none"
+        containerClassName="max-w-full"
         label="이름"
         name="guest-name"
         onChange={onNameChange}
-        placeholder="이름을 입력해 주세요"
+        placeholder="이름을 입력해주세요"
         readOnly={!onNameChange}
         required
         value={name}
       />
 
       <fieldset>
+        <legend className="sr-only">참석 여부</legend>
         <Label as="span" required>참석 여부</Label>
-        <div className="mt-inline-compact flex gap-stack-md">
+        <div className="mt-field-label flex gap-stack-md">
           <RadioOption
             checked={attendance === "yes"}
+            className="flex-1"
             label="참석"
             name="attendance"
             onChange={() => onAttendanceChange?.("yes")}
@@ -76,6 +81,7 @@ export default function RSVPCard({ state = "form", name = "", attendance = "yes"
           />
           <RadioOption
             checked={attendance === "no"}
+            className="flex-1"
             label="불참"
             name="attendance"
             onChange={() => onAttendanceChange?.("no")}
@@ -86,12 +92,12 @@ export default function RSVPCard({ state = "form", name = "", attendance = "yes"
       </fieldset>
 
       <div>
-        <Label as="span">동반 인원</Label>
-        <Stepper className="mt-inline-compact" onDecrease={onDecrease} onIncrease={onIncrease} value={companionCount} />
+        <Label as="span" required>동반 인원</Label>
+        <Stepper className="mt-field-label" onDecrease={onDecrease} onIncrease={onIncrease} value={companionCount} />
         <p className="mt-inline-sm typography-caption-md text-text-tertiary">본인을 제외하고 함께 오는 인원이에요.</p>
       </div>
 
-      <Button className="w-full" size="lg" type="submit">참석 여부 보내기</Button>
+      <Button className="w-full" disabled={!name.trim()} size="lg" type="submit">참석 여부 보내기</Button>
     </form>
   );
 }

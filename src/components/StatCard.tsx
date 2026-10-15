@@ -8,7 +8,7 @@ export type StatCardProps = {
 export default function StatCard({ label = "참석", value = 0, highlight = false, className }: StatCardProps) {
   return (
     <article className={[
-      "flex min-w-[var(--size-stat-card)] flex-col items-center gap-inline-sm rounded-card px-control-x py-stack-md",
+      "flex min-w-0 flex-col items-center gap-inline-sm rounded-card px-control-x py-stack-md",
       highlight ? "bg-info-subtle" : "bg-surface-subtle",
       className,
     ].filter(Boolean).join(" ")}>
