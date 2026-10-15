@@ -1,25 +1,300 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
+  /* Font */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Primitive colors */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-150: #e7e7e8;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-500: #a0a2a3;
+  --color-neutral-600: #66707a;
+  --color-neutral-700: #6b7280;
+  --color-neutral-800: #5e5e5e;
+  --color-neutral-900: #1f2937;
+  --color-neutral-950: #131313;
+  --color-neutral-1000: #000000;
+  --color-white-20: #ffffff33;
+  --color-blue-50: #dceafe;
+  --color-blue-300: #74aafb;
+  --color-blue-500: #297eff;
+  --color-blue-800: #1f3dbc;
+  --color-blue-900: #00378a;
+  --color-indigo-500: #536dfe;
+  --color-red-600: #d90000;
+
+  /* Semantic colors */
+  --color-background-default: var(--color-neutral-0);
+  --color-background-subtle: var(--color-neutral-50);
+  --color-surface-default: var(--color-neutral-0);
+  --color-surface-subtle: var(--color-neutral-100);
+  --color-surface-inverse: var(--color-neutral-900);
+  --color-text-primary: var(--color-neutral-950);
+  --color-text-strong: var(--color-neutral-1000);
+  --color-text-secondary: var(--color-neutral-700);
+  --color-text-tertiary: var(--color-neutral-600);
+  --color-text-disabled: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-0);
+  --color-border-subtle: var(--color-neutral-150);
+  --color-border-default: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-600);
+  --color-border-accent: var(--color-blue-800);
+  --color-border-on-dark: var(--color-white-20);
+  --color-action-primary: var(--color-indigo-500);
+  --color-action-secondary: var(--color-blue-500);
+  --color-action-on-primary: var(--color-neutral-0);
+  --color-action-hover-overlay: #1f3dbcb2;
+  --color-info-subtle: var(--color-blue-50);
+  --color-info-soft: var(--color-blue-300);
+  --color-info-default: var(--color-blue-500);
+  --color-info-strong: var(--color-blue-900);
+  --color-feedback-error: var(--color-red-600);
+
+  /* Guide and preserved colors */
+  --color-guide-text-preserved-1: #131313;
+  --color-component-outline-preserved-2: #9647ff;
+  --color-cover-gradient-preserved-3: #050510;
+  --color-cover-gradient-preserved-4: #656f79;
+  --color-component-outline-preserved-5: #9747ff;
+  --color-guide-text-preserved-6: #d90000;
+  --color-guide-text-preserved-7: #6b7380;
+  --color-guide-surface-preserved-8: #e5e8ed;
+  --color-guide-text-preserved-9: #111827;
+  --color-guide-surface-preserved-10: #f6f7fa;
+  --color-guide-border-preserved-11: #e5e8ed;
+  --color-guide-text-preserved-12: #6b7380;
+  --color-guide-surface-preserved-13: #e8edff;
+  --color-preview-neutral-800: var(--color-neutral-800);
+
+  /* Primitive spacing — Figma values are used as-is in px. */
+  --spacing-0: 0px;
+  --spacing-1: 1px;
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-5: 5px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
+  --spacing-120: 120px;
+
+  /* Semantic spacing */
+  --spacing-none: var(--spacing-0);
+  --spacing-inline-xs: var(--spacing-2);
+  --spacing-inline-sm: var(--spacing-4);
+  --spacing-compact-detail: var(--spacing-5);
+  --spacing-inline-compact: var(--spacing-6);
+  --spacing-inline-md: var(--spacing-8);
+  --spacing-control-y: var(--spacing-8);
+  --spacing-control-compact: var(--spacing-10);
+  --spacing-control-x: var(--spacing-12);
+  --spacing-stack-sm: var(--spacing-12);
+  --spacing-stack-md: var(--spacing-16);
+  --spacing-page-horizontal: var(--spacing-20);
+  --spacing-stack-lg: var(--spacing-24);
+  --spacing-stack-xl: var(--spacing-28);
+  --spacing-section: var(--spacing-32);
+  --spacing-section-lg: var(--spacing-40);
+  --spacing-section-xl: var(--spacing-60);
+  --spacing-cover-inset: var(--spacing-80);
+  --spacing-cover-inset-compact: 78px;
+  --spacing-guide-section: var(--spacing-120);
+  --spacing-guide-row: 14px;
+  --spacing-guide-group: 56px;
+  --spacing-guide-inset: 64px;
+  --spacing-preview-body-compact: 15px;
+  --spacing-preview-heading: 18px;
+  --spacing-preview-title: 25px;
+  --spacing-preview-display: 26px;
+
+  /* Radius */
+  --radius-0: 0px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-20: 20px;
+  --radius-full: 999px;
+  --radius-none: var(--radius-0);
+  --radius-button: var(--radius-6);
+  --radius-control: var(--radius-8);
+  --radius-media: var(--radius-12);
+  --radius-card: var(--radius-20);
+  --radius-pill: var(--radius-full);
+  --radius-cover: 32px;
+  --radius-component-set: 5px;
+  --radius-guide-chip: 10px;
+  --radius-guide-panel: 16px;
+  --radius-guide-card: 24px;
+  --radius-scaled-media-16-799999237060547: 16.799999237060547px;
+
+  /* Typography primitives */
+  --text-11: 11px;
+  --text-12: 12px;
+  --text-13: 13px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-16: 16px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-25: 25px;
+  --text-26: 26px;
+  --text-36: 36px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --leading-140: 1.4;
+  --leading-150: 1.5;
+  --leading-160: 1.6;
+  --tracking-0: 0px;
+  --tracking-preserved-neg-1: -1px;
+  --tracking-preserved-neg-0-16: -0.1599999964237213px;
+  --tracking-preserved-neg-0-12: -0.12px;
+  --tracking-preserved-neg-0-28: -0.28px;
+  --tracking-preserved-neg-0-42: -0.42px;
+  --tracking-preserved-neg-0-5: -0.5px;
+
+  /* Component sizes from Figma */
+  --size-icon-sm: 20px;
+  --size-icon-md: 24px;
+  --size-icon-lg: 32px;
+  --size-radio-dot: 8px;
+  --size-radio-inner: 16px;
+  --size-radio-outer: 20px;
+  --size-step-button: 44px;
+  --size-input-field: 45px;
+  --size-navbar: 65px;
+  --size-success-icon: 64px;
+  --size-textarea-short: 72px;
+  --size-response-row: 78px;
+  --size-stat-card: 107px;
+  --size-textarea-tall: 120px;
+  --size-image-character: 201px;
+  --size-input: 308px;
+  --size-section-header: 335px;
+  --size-content-card: 338px;
+  --size-invitation-cover: 375px;
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.6;
+
+  /* Semantic type sizes */
+  --text-display-lg: var(--text-26);
+  --text-title-lg: var(--text-25);
+  --text-heading-lg: var(--text-20);
+  --text-heading-md: var(--text-18);
+  --text-body-lg: var(--text-16);
+  --text-body-compact: var(--text-15);
+  --text-body-md: var(--text-14);
+  --text-caption-md: var(--text-12);
+  --text-caption-sm: var(--text-12);
+  --text-label-lg: var(--text-16);
+  --text-label-md: var(--text-14);
+
+  /* Existing names kept as aliases for current pages. */
+  --color-background: var(--color-background-default);
+  --color-foreground: var(--color-text-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: var(--color-background-default);
+  --foreground: var(--color-text-primary);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+@layer utilities {
+  .typography-display-lg {
+    font-size: var(--text-display-lg);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-title-lg {
+    font-size: var(--text-title-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-heading-lg {
+    font-size: var(--text-heading-lg);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-heading-md {
+    font-size: var(--text-heading-md);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-body-lg {
+    font-size: var(--text-body-lg);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-150);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-body-compact {
+    font-size: var(--text-body-compact);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-150);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-body-md {
+    font-size: var(--text-body-md);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-150);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-label-lg {
+    font-size: var(--text-label-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-label-md {
+    font-size: var(--text-label-md);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-140);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-caption-md {
+    font-size: var(--text-caption-md);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-150);
+    letter-spacing: var(--tracking-0);
+  }
+
+  .typography-caption-sm {
+    font-size: var(--text-caption-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-160);
+    letter-spacing: var(--tracking-0);
+  }
 }
