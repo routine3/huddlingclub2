@@ -19,10 +19,12 @@ export type RSVPCardProps = {
   onDecrease?: () => void;
   onIncrease?: () => void;
   onSubmit?: FormEventHandler<HTMLFormElement>;
+  isSubmitting?: boolean;
+  errorMessage?: string;
   className?: string;
 };
 
-export default function RSVPCard({ state = "form", name = "", attendance = "yes", companionCount = 0, onNameChange, onAttendanceChange, onDecrease, onIncrease, onSubmit, className }: RSVPCardProps) {
+export default function RSVPCard({ state = "form", name = "", attendance = "yes", companionCount = 0, onNameChange, onAttendanceChange, onDecrease, onIncrease, onSubmit, isSubmitting = false, errorMessage = "", className }: RSVPCardProps) {
   const classes = [
     "w-full max-w-[var(--size-section-header)] rounded-card bg-surface-default px-page-horizontal py-stack-lg",
     className,
@@ -97,7 +99,15 @@ export default function RSVPCard({ state = "form", name = "", attendance = "yes"
         <p className="mt-inline-sm typography-caption-md text-text-tertiary">본인을 제외하고 함께 오는 인원이에요.</p>
       </div>
 
-      <Button className="w-full" disabled={!name.trim()} size="lg" type="submit">참석 여부 보내기</Button>
+      {errorMessage ? (
+        <p className="typography-caption-md text-feedback-error" role="alert">
+          {errorMessage}
+        </p>
+      ) : null}
+
+      <Button className="w-full" disabled={!name.trim() || isSubmitting} size="lg" type="submit">
+        {isSubmitting ? "보내는 중..." : "참석 여부 보내기"}
+      </Button>
     </form>
   );
 }

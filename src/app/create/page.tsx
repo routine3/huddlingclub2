@@ -13,6 +13,7 @@ import NavBar from "@/components/NavBar";
 import SuccessIcon from "@/components/SuccessIcon";
 import Textarea from "@/components/Textarea";
 import Toast from "@/components/Toast";
+import { createInvitation } from "./actions";
 
 const initialForm = {
   title: "쉿, 우리끼리\n파자마 파티",
@@ -29,6 +30,9 @@ export default function CreatePage() {
   const router = useRouter();
   const [form, setForm] = useState(initialForm);
   const [isPublished, setIsPublished] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [publishedId, setPublishedId] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [toastMessage, setToastMessage] = useState("");
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,13 +50,28 @@ export default function CreatePage() {
     setForm((current) => ({ ...current, [field]: value }));
   }
 
-  function publishInvitation(event: FormEvent<HTMLFormElement>) {
+  async function publishInvitation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (isComplete) {
-      setIsPublished(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!isComplete || isPublishing) {
+      return;
     }
+
+    setIsPublishing(true);
+    setErrorMessage("");
+
+    const result = await createInvitation(form);
+
+    setIsPublishing(false);
+
+    if (!result.success) {
+      setErrorMessage(result.message);
+      return;
+    }
+
+    setPublishedId(result.id);
+    setIsPublished(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function showCopyToast(message: string) {
@@ -84,7 +103,7 @@ export default function CreatePage() {
             className="max-w-full"
             onCopy={() => showCopyToast("초대장 링크를 복사했어요.")}
             onCopyError={() => showCopyToast("링크 복사에 실패했어요. 직접 복사해 주세요.")}
-            value="/i/demo"
+            value={`${window.location.origin}/i/${publishedId}`}
           />
           <CopyLinkField
             className="max-w-full"
@@ -92,9 +111,9 @@ export default function CreatePage() {
             onCopy={() => showCopyToast("응답 현황 링크를 복사했어요.")}
             onCopyError={() => showCopyToast("링크 복사에 실패했어요. 직접 복사해 주세요.")}
             title="응답 현황 링크"
-            value="/i/demo/responses"
+            value={`${window.location.origin}/i/${publishedId}/responses`}
           />
-          <Button className="w-full" onClick={() => router.push("/i/demo")} size="lg">
+          <Button className="w-full" onClick={() => router.push(`/i/${publishedId}`)} size="lg">
             내 초대장 보기
           </Button>
         </div>
@@ -179,7 +198,14 @@ export default function CreatePage() {
         </div>
 
         <div className="fixed bottom-0 left-1/2 z-10 w-full max-w-[var(--size-invitation-cover)] -translate-x-1/2 bg-surface-default p-page-horizontal">
-          <Button className="w-full" disabled={!isComplete} size="lg" type="submit">발행하기</Button>
+          {errorMessage ? (
+            <p className="mb-inline-md typography-caption-md text-feedback-error" role="alert">
+              {errorMessage}
+            </p>
+          ) : null}
+          <Button className="w-full" disabled={!isComplete || isPublishing} size="lg" type="submit">
+            {isPublishing ? "발행하는 중..." : "발행하기"}
+          </Button>
         </div>
       </form>
     </main>

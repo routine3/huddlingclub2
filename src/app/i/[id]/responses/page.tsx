@@ -1,34 +1,28 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import Button from "@/components/Button";
+import { notFound } from "next/navigation";
 import EmptyState from "@/components/EmptyState";
 import NavBar from "@/components/NavBar";
 import ResponseRowTrue from "@/components/ResponseRowTrue";
 import SectionHeader from "@/components/SectionHeader";
 import StatCard from "@/components/StatCard";
-import Toast from "@/components/Toast";
-import { mockInvitations } from "@/lib/mock";
-import { useParams } from "next/navigation";
+import { formatDateTime } from "@/lib/format-date-time";
+import { getInvitation, getRsvps } from "@/lib/invitations";
+import CopyInvitationButton from "./CopyInvitationButton";
 
-function formatDateTime(dateTime: string) {
-  const date = new Date(dateTime);
-  const weekday = new Intl.DateTimeFormat("ko-KR", {
-    timeZone: "Asia/Seoul",
-    weekday: "short",
-  }).format(date);
-  const [datePart, timePart] = dateTime.split("T");
-  const [year, month, day] = datePart.split("-");
+export const dynamic = "force-dynamic";
 
-  return `${year}년 ${Number(month)}월 ${Number(day)}일 (${weekday}) ${timePart.slice(0, 5)}`;
-}
+export default async function ResponsesPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const invitation = await getInvitation(id);
 
-export default function ResponsesPage() {
-  const { id } = useParams<{ id: string }>();
-  const [toastMessage, setToastMessage] = useState("");
-  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const invitation = mockInvitations[id] ?? mockInvitations.demo;
-  const responses = invitation.responses;
+  if (!invitation) {
+    notFound();
+  }
+
+  const responses = await getRsvps(invitation.id);
   const attendingResponses = responses.filter((response) => response.status === "yes");
   const notAttendingResponses = responses.filter((response) => response.status === "no");
   const attendeeTotal = attendingResponses.reduce(
@@ -36,38 +30,6 @@ export default function ResponsesPage() {
     0,
   );
   const formattedDateTime = formatDateTime(invitation.dateTime);
-
-  useEffect(() => {
-    return () => {
-      if (toastTimerRef.current) {
-        clearTimeout(toastTimerRef.current);
-      }
-    };
-  }, []);
-
-  function showToast(message: string) {
-    setToastMessage(message);
-
-    if (toastTimerRef.current) {
-      clearTimeout(toastTimerRef.current);
-    }
-
-    toastTimerRef.current = setTimeout(() => {
-      setToastMessage("");
-      toastTimerRef.current = null;
-    }, 2000);
-  }
-
-  async function copyInvitationLink() {
-    const invitationUrl = `${window.location.origin}/i/${invitation.id}`;
-
-    try {
-      await navigator.clipboard.writeText(invitationUrl);
-      showToast("초대장 링크를 복사했어요.");
-    } catch {
-      showToast("링크 복사에 실패했어요. 주소를 직접 복사해 주세요.");
-    }
-  }
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[var(--size-invitation-cover)] bg-surface-default">
@@ -99,7 +61,7 @@ export default function ResponsesPage() {
             responses.map((response) => (
               <ResponseRowTrue
                 className="max-w-full"
-                key={response.name}
+                key={response.id}
                 meta={response.status === "yes" && response.companionCount > 0 ? `동반 ${response.companionCount}명` : ""}
                 name={response.name}
                 status={response.status}
@@ -108,11 +70,8 @@ export default function ResponsesPage() {
           )}
         </section>
 
-        <Button className="w-full" onClick={copyInvitationLink} size="lg">
-          초대장 링크 복사하기
-        </Button>
+        <CopyInvitationButton invitationId={invitation.id} />
       </div>
-      {toastMessage ? <Toast message={toastMessage} /> : null}
     </main>
   );
 }
